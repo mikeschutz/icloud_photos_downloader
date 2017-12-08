@@ -1,11 +1,10 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
-RUN set -xe && \
-    apk add --update --no-cache python py-pip git && \
-    git clone https://github.com/ndbroadbent/icloud_photos_downloader.git && \
-    pip2 install -r icloud_photos_downloader/requirements.txt && \
-    adduser -D -h /home/user -u 1000 user && \
-    rm -fr /var/cache/apk/*
+RUN apt-get update && \
+    apt-get -y install python python-pip git ca-certificates && \
+    git clone https://github.com/mikeschutz/icloud_photos_downloader.git && \
+    pip install -r icloud_photos_downloader/requirements.txt && \
+    useradd -u 1000 -b /home/user user
 
 USER user
 
